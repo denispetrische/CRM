@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CRM.Abstractions\CRM.Abstractions.csproj" />
     <ProjectReference Include="..\CRM.Core\CRM.Core.csproj" />
   </ItemGroup>
 

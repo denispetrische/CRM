@@ -1,3 +1,6 @@
+using CRM.API.Extensions;
+using CRM.API.Middlewares;
+using CRM.Application;
 using CRM.Core.Models;
 using CRM.Data;
 using Microsoft.AspNetCore.Identity;
@@ -17,6 +20,13 @@ builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<UserDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddApiVersioning();
+
+builder.Services.AddApiServices()
+                .AddApplicationServices();
+
+builder.Services.AddTransient<ExceptionMiddleware>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,6 +36,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
