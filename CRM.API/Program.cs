@@ -23,7 +23,10 @@ builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddDefaultTokenProviders();
 
 builder.Host.UseSerilog((context, configuration) =>
-    configuration.ReadFrom.Configuration(context.Configuration));
+{
+    configuration.ReadFrom.Configuration(context.Configuration)
+                 .WriteTo.Seq(builder.Configuration["Seq"]);
+});
 
 builder.Services.AddApiVersioning();
 
